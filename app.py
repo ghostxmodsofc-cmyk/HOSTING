@@ -48,7 +48,7 @@ def keep_alive():
 TOKEN = '7951184759:AAE_JG4ZQuAxqUOzF1CN3Qv9B8wN7jl7jfM' # Replace with your actual token
 OWNER_ID = 6585974275 # Replace with your Owner ID
 ADMIN_ID = 6585974275 # Replace with your Admin ID (can be same as Owner)
-YOUR_USERNAME = '@GHOST_XMOD' # Replace with your Telegram username (without the @)
+YOUR_USERNAME = '@JOBAYAR_AHMED' # Replace with your Telegram username (without the @)
 UPDATE_CHANNEL = 'https://t.me/GHOST_XMOD' # Replace with your update channel link
 
 # Folder setup - using absolute paths
