@@ -23,25 +23,89 @@ import atexit
 import requests # For polling exceptions
 
 # --- Flask Keep Alive ---
-from flask import Flask
+from flask import Flask, render_template_string
 from threading import Thread
 
 app = Flask('')
 
+# Custom HTML template with your bot information
+HTML_TEMPLATE = """
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GHOST XMOD HOSTING BOT</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            border-radius: 5px;
+        }
+        .info-card {
+            background-color: white;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .status {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>GHOST XMOD HOSTING BOT</h1>
+        <p>Python Telegram Bot Hosting Service</p>
+    </div>
+    
+    <div class="info-card">
+        <h2>Bot Status: <span class="status">🟢 Online</span></h2>
+        <p>This bot allows you to host and run Python and JavaScript scripts on Telegram.</p>
+    </div>
+    
+    <div class="info-card">
+        <h3>Bot Features:</h3>
+        <ul>
+            <li>Python script hosting</li>
+            <li>JavaScript script hosting</li>
+            <li>Automatic package installation</li>
+            <li>File management system</li>
+            <li>User subscription system</li>
+        </ul>
+    </div>
+    
+    <div class="info-card">
+        <h3>Contact Information:</h3>
+        <p>Owner: @JOBAYAR_AHMED</p>
+        <p>Channel: <a href="https://t.me/GHOST_XMOD">GHOST XMOD</a></p>
+    </div>
+</body>
+</html>
+"""
+
 @app.route('/')
 def home():
-    return "IT'S ME HOSTING BOT"
+    return render_template_string(HTML_TEMPLATE)
 
 def run_flask():
-  # Make sure to run on port provided by environment or default to 8080
-  port = int(os.environ.get("PORT", 8080))
-  app.run(host='0.0.0.0', port=port)
+    port = int(os.environ.get("PORT", 8080))
+    app.run(host='0.0.0.0', port=port)
 
 def keep_alive():
     t = Thread(target=run_flask)
-    t.daemon = True # Allows program to exit even if this thread is running
+    t.daemon = True
     t.start()
-    print("Flask Keep-Alive server started.")
+    print("Flask Keep-Alive server started with custom HTML page.")
 # --- End Flask Keep Alive ---
 
 # --- Configuration ---
