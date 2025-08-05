@@ -31,64 +31,276 @@ app = Flask('')
 # Custom HTML template with your bot information
 HTML_TEMPLATE = """
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>GHOST XMOD HOSTING BOT</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GHOST XMOD | Premium Bot Hosting</title>
     <style>
+        :root {
+            --primary: #6a11cb;
+            --secondary: #2575fc;
+            --accent: #ff4d4d;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+        }
+        
         body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--dark), #16213e);
+            color: var(--light);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #f5f5f5;
         }
-        .header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 15px;
+        
+        header {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            padding: 20px 0;
             text-align: center;
-            border-radius: 5px;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin-bottom: 40px;
         }
-        .info-card {
-            background-color: white;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 0;
+            background: linear-gradient(to right, #ffffff, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
+        
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+        
         .status {
-            color: #4CAF50;
+            display: inline-block;
+            background: rgba(0, 255, 0, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            margin-top: 15px;
+            font-weight: 600;
+        }
+        
+        .status::before {
+            content: "🟢";
+            margin-right: 8px;
+        }
+        
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .card-title {
+            font-size: 1.5rem;
+            margin-top: 0;
+            color: white;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .card-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+        }
+        
+        .feature-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .feature-list li {
+            padding: 8px 0;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .feature-list li::before {
+            content: "✓";
+            color: var(--accent);
+            position: absolute;
+            left: 0;
             font-weight: bold;
+        }
+        
+        .contact-section {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+        }
+        
+        .contact-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+        
+        .contact-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.05);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(106, 17, 203, 0.6);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .card-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>GHOST XMOD HOSTING BOT</h1>
-        <p>Python Telegram Bot Hosting Service</p>
+    <header>
+        <div class="container">
+            <h1 class="logo">GHOST XMOD HOSTING</h1>
+            <p class="tagline">Premium Python & JavaScript Bot Hosting Service</p>
+            <div class="status">Online</div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="card-container">
+            <div class="card">
+                <h2 class="card-title">Python Hosting</h2>
+                <ul class="feature-list">
+                    <li>Full Python script execution</li>
+                    <li>Automatic package installation</li>
+                    <li>Advanced error handling</li>
+                    <li>Real-time output monitoring</li>
+                    <li>Multi-file project support</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h2 class="card-title">JavaScript Hosting</h2>
+                <ul class="feature-list">
+                    <li>Node.js environment</li>
+                    <li>NPM package support</li>
+                    <li>Asynchronous execution</li>
+                    <li>Module imports</li>
+                    <li>ES6+ features</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h2 class="card-title">VIP Features</h2>
+                <ul class="feature-list">
+                    <li>Priority script execution</li>
+                    <li>Increased resource limits</li>
+                    <li>24/7 premium support</li>
+                    <li>Advanced file management</li>
+                    <li>Exclusive beta features</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="contact-section">
+            <h2 class="contact-title">Get Started Today</h2>
+            <p>Join our premium hosting service and take your Telegram bots to the next level</p>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span>👑 Owner:</span>
+                    <a href="https://t.me/JOBAYAR_AHMED" style="color: var(--accent); text-decoration: none;">@JOBAYAR_AHMED</a>
+                </div>
+                <div class="contact-item">
+                    <span>📢 Channel:</span>
+                    <a href="https://t.me/GHOST_XMOD" style="color: var(--accent); text-decoration: none;">GHOST XMOD</a>
+                </div>
+            </div>
+            
+            <a href="https://t.me/GHOST_XMOD_HOSTING_BOT" class="btn">Start Hosting Now</a>
+        </div>
     </div>
     
-    <div class="info-card">
-        <h2>Bot Status: <span class="status">🟢 Online</span></h2>
-        <p>This bot allows you to host and run Python and JavaScript scripts on Telegram.</p>
-    </div>
-    
-    <div class="info-card">
-        <h3>Bot Features:</h3>
-        <ul>
-            <li>Python script hosting</li>
-            <li>JavaScript script hosting</li>
-            <li>Automatic package installation</li>
-            <li>File management system</li>
-            <li>User subscription system</li>
-        </ul>
-    </div>
-    
-    <div class="info-card">
-        <h3>Contact Information:</h3>
-        <p>Owner: @JOBAYAR_AHMED</p>
-        <p>Channel: <a href="https://t.me/GHOST_XMOD">GHOST XMOD</a></p>
-    </div>
+    <footer>
+        &copy; 2023 GHOST XMOD HOSTING | All Rights Reserved
+    </footer>
 </body>
 </html>
 """
